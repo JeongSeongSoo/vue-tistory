@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import RefArray from './components/RefArray.vue';
-import ReactiveArray from './components/ReactiveArray.vue';
+import RefArray from './components/list/RefArray.vue';
+import ReactiveArray from './components/list/ReactiveArray.vue';
 
 export default {
   setup() {
