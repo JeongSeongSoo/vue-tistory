@@ -1,33 +1,35 @@
 <template>
-  {{ users }}
+  <!-- 2022.08.04[프뚜]: 04. v-model로 searchText(ref)를 매핑-->
+  watch => <input type="text" v-model="searchText">
 </template>
 
 <script>
-import axios from 'axios';
-import { ref } from 'vue';
+// 2022.08.04[프뚜]: 01. ref, watch import
+import { ref, watch } from 'vue';
 
 export default {
-  // 2022.08.03[프뚜]: 02-1. function에 async로 선언함
-  async setup() {
-    const users = ref({});
+  setup() {
+    // 2022.08.04[프뚜]: 02. watch의 대상이 될 ref 변수 선언
+    const searchText = ref('');
 
-    // 2022.08.03[프뚜]: 01. 첫번째 로그
-    console.log("1. 유저 데이터");
+    // 2022.08.04[프뚜]: 05. timer 변수 선언
+    let timer = null;
 
-    try {
-      // 2022.08.03[프뚜]: 02-2. 두번째 로그 -> await으로 실행이 완료될 때까지 기다림
-      const res = await axios.get('http://localhost:3000/users');
-      users.value = res.data;
-      console.log("2. 유저 데이터");
-    } catch (err) {
-      console.log(err);
-    }
+    // 2022.08.04[프뚜]: 03. ref변수명, (현재 값, 이전 값) => function
+    watch(searchText, (current, prev) => {
+      // 2022.08.04[프뚜]: 06. timer 변수의 값 초기화
+      clearTimeout(timer);
 
-    // 2022.08.03[프뚜]: 03. 세번째 로그
-    console.log("3. 유저 데이터");
+      // 2022.08.04[프뚜]: 2초 뒤에 실행하는 setTimeout -> timer 변수에 등록
+      timer = setTimeout(() => {
+        let today = new Date();
+        console.log(`${today.getMinutes()}분 ${today.getSeconds()}초`);
+        console.log(`이전 input 값 => ${prev}\n현재 input 값 => ${current}\n\n`);
+      }, 2000);
+    });
 
     return {
-      users,
+      searchText,
     }
   },
 }
