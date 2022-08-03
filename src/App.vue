@@ -1,44 +1,40 @@
 <template>
-  <!-- 2022.08.03[프뚜]: 03. count 출력 -->
-  <div>count => {{ count }}</div>
-  <div>countComputed => {{ countComputed }}</div>
-  <div>countComputed => {{ countComputed }}</div>
-
-  <!-- 2022.08.03[프뚜]: 02-2. count 출력 -->
-  <div>countFunction => {{ countFunction() }}</div>
-  <div>countFunction => {{ countFunction() }}</div>
-
-  <!-- 2022.08.03[프뚜]: 04. count 값 추가 -->
-  <p>
-    <input type="button" @click="count++" value="더하기"/>
-  </p>
+  메인페이지 입니다.
+  <p>{{ users }}</p>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+// 2022.08.03[프뚜]: 01. axios import
+import axios from 'axios';
+import { ref } from 'vue';
 
 export default {
   setup() {
-    // 2022.08.03[프뚜]: 01. ref 변수를 선언
-    const count = ref(1);
+    const users = ref({});
 
-    // 2022.08.03[프뚜]: 02. count 변수값이 변할 때 실행되는 computed 생성
-    const countComputed = computed(() => {
-      console.log('countComputed');
-      return count.value + 1;
+    // 2022.08.03[프뚜]: 02. json-server url, 데이터를 create할 땐 post 방식을 사용
+    axios.post('http://localhost:3000/users', {
+      'name': '프뚜1',
+      'job': '프로그래머1'
+    }).then(res => {
+      // 2022.08.03[프뚜]: 02-1. 서버통신이 성공했을 때 실행
+      console.log(res);
+    }).then(err => {
+      // 2022.08.03[프뚜]: 02-2. 서버통신이 실패했을 때 실행
+      console.log(err);
     });
 
-    // 2022.08.03[프뚜]: 02-1. count 변수값이 변할 때 실행되는 function 생성
-    const countFunction = () => {
-      console.log('countFunction');
-      return count.value + 1;
-    };
+    // 2022.08.03[프뚜]: 03. json-server url, 데이터를 load할 땐 get 방식을 사용
+    axios.get('http://localhost:3000/users')
+      .then(res => {
+        users.value = res.data;
+      }).then(err => {
+        console.log(err);
+      });
 
     return {
-      count,
-      countComputed,
-      countFunction
-    };
+      users,
+    }
   },
 }
 </script>
