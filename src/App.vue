@@ -1,36 +1,30 @@
 <template>
-  메인페이지 입니다.
-  <p>{{ users }}</p>
+  {{ users }}
 </template>
 
 <script>
-// 2022.08.03[프뚜]: 01. axios import
 import axios from 'axios';
 import { ref } from 'vue';
 
 export default {
-  setup() {
+  // 2022.08.03[프뚜]: 02-1. function에 async로 선언함
+  async setup() {
     const users = ref({});
 
-    // 2022.08.03[프뚜]: 02. json-server url, 데이터를 create할 땐 post 방식을 사용
-    axios.post('http://localhost:3000/users', {
-      'name': '프뚜1',
-      'job': '프로그래머1'
-    }).then(res => {
-      // 2022.08.03[프뚜]: 02-1. 서버통신이 성공했을 때 실행
-      console.log(res);
-    }).then(err => {
-      // 2022.08.03[프뚜]: 02-2. 서버통신이 실패했을 때 실행
-      console.log(err);
-    });
+    // 2022.08.03[프뚜]: 01. 첫번째 로그
+    console.log("1. 유저 데이터");
 
-    // 2022.08.03[프뚜]: 03. json-server url, 데이터를 load할 땐 get 방식을 사용
-    axios.get('http://localhost:3000/users')
-      .then(res => {
-        users.value = res.data;
-      }).then(err => {
-        console.log(err);
-      });
+    try {
+      // 2022.08.03[프뚜]: 02-2. 두번째 로그 -> await으로 실행이 완료될 때까지 기다림
+      const res = await axios.get('http://localhost:3000/users');
+      users.value = res.data;
+      console.log("2. 유저 데이터");
+    } catch (err) {
+      console.log(err);
+    }
+
+    // 2022.08.03[프뚜]: 03. 세번째 로그
+    console.log("3. 유저 데이터");
 
     return {
       users,
