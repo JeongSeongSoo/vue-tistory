@@ -1,46 +1,45 @@
 <template>
-  <!-- 2022.08.03[프뚜]: 07. 자식에서 만든 변수명, 연결 할 function 명 -->
-  <MyInfo
-      @setInfo = setInfo
-  />
+  <!-- 2022.08.03[프뚜]: 03. count 출력 -->
+  <div>count => {{ count }}</div>
+  <div>countComputed => {{ countComputed }}</div>
+  <div>countComputed => {{ countComputed }}</div>
 
-  <!-- 2022.08.03[프뚜]: 08. 자식에서 받아온 데이터 출력 -->
-  <div>이름 ==> {{ info.name }}</div>
-  <div>취미 ==> {{ info.job }}</div>
-  <div>직업 ==> {{ info.hobby }}</div>
+  <!-- 2022.08.03[프뚜]: 02-2. count 출력 -->
+  <div>countFunction => {{ countFunction() }}</div>
+  <div>countFunction => {{ countFunction() }}</div>
+
+  <!-- 2022.08.03[프뚜]: 04. count 값 추가 -->
+  <p>
+    <input type="button" @click="count++" value="더하기"/>
+  </p>
 </template>
 
 <script>
-import { ref } from 'vue';
-
-// 2022.08.03[프뚜]: 03. 자식 컴포넌트 import
-import MyInfo from './components/emit/EmitInfo.vue';
+import { ref, computed } from 'vue';
 
 export default {
   setup() {
-    // 2022.08.03[프뚜]: 05. 자식 컴포넌트에서 받아온 데이터 출력하기 위해 초기화
-    let info = ref({
-        'name': '',
-        'job': '',
-        'hobby': ''
+    // 2022.08.03[프뚜]: 01. ref 변수를 선언
+    const count = ref(1);
+
+    // 2022.08.03[프뚜]: 02. count 변수값이 변할 때 실행되는 computed 생성
+    const countComputed = computed(() => {
+      console.log('countComputed');
+      return count.value + 1;
     });
 
-    // 2022.08.03[프뚜]: 06. 자식컴포넌트와 연동 할 function 생성
-    const setInfo = (param) => {
-      console.log(param);
-      info = info.value = param;
+    // 2022.08.03[프뚜]: 02-1. count 변수값이 변할 때 실행되는 function 생성
+    const countFunction = () => {
+      console.log('countFunction');
+      return count.value + 1;
     };
 
     return {
-      info,
-      setInfo,
+      count,
+      countComputed,
+      countFunction
     };
   },
-
-  // 2022.08.03[프뚜]: 04. 자식 컴포넌트 연동
-  components: {
-    MyInfo,
-  }
 }
 </script>
 
