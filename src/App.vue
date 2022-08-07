@@ -1,27 +1,20 @@
 <template>
-  <!-- 2022.08.06[프뚜]: div 안에 같은 이벤트 프로퍼티를 사용하는 태그 생성 -->
-  <div @click="divClick()">
-    <input type="button" @click.stop="buttonClick()" value="버튼" />
-  </div>
+  App.vue
 </template>
 
 <script>
 export default {
   setup() {
-    // 2022.08.06[프뚜]: div를 클릭하면 실행되는 method
-    const divClick = () => {
-      console.log("divClick");
+    let object1 = {
+      'key': 1
     };
 
-    // 2022.08.06[프뚜]: button을 클릭하면 실행되는 method
-    const buttonClick = () => {
-      console.log("buttonClick");
-    };
+    // 2022.08.07[프뚜]: object1 값을 복사하기
+    let object2 = {...object1};
+    console.log(object2);
 
-    return {
-      divClick,
-      buttonClick
-    }
+    // 2022.08.07[프뚜]: JSON.stringify를 통해 문자열(원시타입)로 변경된 후 비교하기
+    console.log(JSON.stringify(object1) === JSON.stringify(object2));
   },
 }
 </script>
