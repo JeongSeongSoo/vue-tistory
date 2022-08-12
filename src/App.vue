@@ -1,12 +1,9 @@
 <template>
-  App.vue
+  <router-view></router-view>
 </template>
 
 <script setup>
-console.log(process.env.VUE_APP_JSS);
-console.log(process.env.VUE_APP_DEV);
 
-console.log(process.env.NODE_ENV);
 </script>
 
 <style>

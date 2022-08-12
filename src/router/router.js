@@ -9,6 +9,11 @@ const router = createRouter({
     routes: [
         {
             path: '/',
+            name: 'App',
+            component: () => import('@/App.vue')
+        },
+        {
+            path: '/main',
             name: 'Main',
             component: () => import('../pages/Main.vue')
         },
