@@ -1,11 +1,21 @@
 <template>
-  <router-view></router-view>
-  <!-- 2022.08.15[프뚜]: 받고 싶은 공간에 id 값을 선언한다. -->
-  <div id="ssjeong"></div>
+  <!-- 2022.08.15[프뚜]: user 데이터를 Main.vue에서 출력하기 -->
+  <!-- 2022.08.15[프뚜]: userChange method를 Main.vue에서 사용하기 -->
+  <router-view
+    :user="user"
+    @userChange="userChange"/>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 
+// 2022.08.15[프뚜]: user 데이터 생성
+const user = ref('프뚜');
+
+// 2022.08.15[프뚜]: user 데이터 변경 method
+const userChange = () => {
+  user.value = '먹뚜';
+};
 </script>
 
 <style>
