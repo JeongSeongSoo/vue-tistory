@@ -1,19 +1,25 @@
 <template>
-  <Users>
-    <template #default="{ title }">{{ title }}</template>
-    <template #name>프뚜</template>
-    <template #job>프로그래머</template>
-  </Users>
-  <hr/>
-  <Users>
-    <template #default="{ title }">{{ title }}</template>
-    <template #name>먹뚜</template>
-    <template #job>먹방</template>
-  </Users>
+  <!-- 2022.08.19[프뚜]: v-model:변수값="" -->
+  <Users
+    v-model:name="user.name"
+    v-model:job="user.job"
+  />
+  <br/><br/>
+  <input type="button" value="저장" @click="save()">
 </template>
 
 <script setup>
+import { ref, onUpdated } from 'vue';
 import Users from '@/pages/users/Users.vue';
+
+const user = ref({
+  name: "",
+  job: ""
+});
+
+const save = () => {
+  console.log(user.value);
+};
 </script>
 
 <style>
