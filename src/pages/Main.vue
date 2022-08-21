@@ -1,25 +1,20 @@
 <template>
-  <!-- 2022.08.19[프뚜]: v-model:변수값="" -->
-  <Users
-    v-model:name="user.name"
-    v-model:job="user.job"
-  />
-  <br/><br/>
-  <input type="button" value="저장" @click="save()">
+  Main입니다.
 </template>
 
 <script setup>
-import { ref, onUpdated } from 'vue';
-import Users from '@/pages/users/Users.vue';
+// 2022.08.21[프뚜]: 01. vuex의 useStore를 import
+import { useStore } from 'vuex';
 
-const user = ref({
-  name: "",
-  job: ""
-});
+// 2022.08.21[프뚜]: 02. userStore의 값을 store로 받음
+const store = useStore();
 
-const save = () => {
-  console.log(user.value);
-};
+// 2022.08.21[프뚜]: 03. state(actions) 값 변경
+store.dispatch('setNameAndJob');
+
+// 2022.08.21[프뚜]: 04. state 출력
+console.log(store.state.name);
+console.log(store.state.job);
 </script>
 
 <style>
